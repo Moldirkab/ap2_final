@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS cars (
                                     price_per_day DOUBLE PRECISION NOT NULL,
                                     status TEXT NOT NULL DEFAULT 'available',
                                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                    photo TEXT
 );
-UPDATE cars SET status='available' WHERE id=1;
+
+
+

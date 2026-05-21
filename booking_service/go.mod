@@ -3,7 +3,7 @@ module booking-service
 go 1.25.5
 
 require (
-	github.com/Moldirkab/ap2_final_car_service_generated v0.0.0-20260516090037-e36cb1913a67
+	github.com/Moldirkab/ap2_final_car_service_generated v0.0.0-20260520181908-6743623aeb8f
 	github.com/Moldirkab/ap2_final_generated v0.0.0-20260516105707-db2b735dee19
 	github.com/Moldirkab/ap2_final_user_service_generated v0.0.0-20260516095852-41a77fbc003d
 	github.com/google/uuid v1.6.0

@@ -6,3 +6,7 @@
 *.out
 vendor/
 */proto/
+
+# Frontend
+frontend/node_modules/
+frontend/build/

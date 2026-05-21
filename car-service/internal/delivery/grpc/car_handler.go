@@ -4,6 +4,8 @@ import (
 	"car_service/internal/domain"
 	"car_service/internal/usecase"
 	"context"
+	"fmt"
+
 	carpb "github.com/Moldirkab/ap2_final_car_service_generated/carpb"
 )
 
@@ -25,6 +27,7 @@ func toProtoCar(car *domain.Car) *carpb.Car {
 		PlateNumber: car.PlateNumber,
 		PricePerDay: car.PricePerDay,
 		Status:      car.Status,
+		Photo:       car.Photo,
 	}
 }
 
@@ -36,10 +39,12 @@ func (h *CarHandler) CreateCar(ctx context.Context, req *carpb.CreateCarRequest)
 		PlateNumber: req.PlateNumber,
 		PricePerDay: req.PricePerDay,
 		Status:      "available",
+		Photo:       req.Photo,
 	})
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("PHOTO IN GRPC:", req.Photo)
 
 	return &carpb.CarResponse{Car: toProtoCar(car)}, nil
 }
@@ -54,14 +59,7 @@ func (h *CarHandler) GetCar(ctx context.Context, req *carpb.GetCarRequest) (*car
 }
 
 func (h *CarHandler) ListCars(ctx context.Context, req *carpb.ListCarsRequest) (*carpb.ListCarsResponse, error) {
-
-	cars, err := h.usecase.ListCars(
-		ctx,
-		req.Brand,
-		req.Status,
-		req.MaxPrice,
-	)
-
+	cars, err := h.usecase.ListCars(ctx, req.Brand, req.Status, req.MaxPrice)
 	if err != nil {
 		return nil, err
 	}
@@ -86,10 +84,12 @@ func (h *CarHandler) UpdateCar(ctx context.Context, req *carpb.UpdateCarRequest)
 		PlateNumber: req.PlateNumber,
 		PricePerDay: req.PricePerDay,
 		Status:      req.Status,
+		Photo:       req.Photo,
 	})
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("PHOTO IN UPDATE:", req.Photo)
 
 	return &carpb.CarResponse{Car: toProtoCar(car)}, nil
 }
