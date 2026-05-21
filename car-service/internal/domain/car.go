@@ -8,6 +8,7 @@ type Car struct {
 	PlateNumber string
 	PricePerDay float64
 	Status      string
+	Photo       string
 }
 
 const (

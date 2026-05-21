@@ -17,8 +17,8 @@ func NewCarRepository(db *sql.DB) *CarRepository {
 
 func (r *CarRepository) Create(ctx context.Context, car *domain.Car) (*domain.Car, error) {
 	query := `
-		INSERT INTO cars (brand, model, year, plate_number, price_per_day, status)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO cars (brand, model, year, plate_number, price_per_day, status, photo)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 		RETURNING id
 	`
 
@@ -35,6 +35,7 @@ func (r *CarRepository) Create(ctx context.Context, car *domain.Car) (*domain.Ca
 		car.PlateNumber,
 		car.PricePerDay,
 		car.Status,
+		car.Photo,
 	).Scan(&car.ID)
 
 	if err != nil {
@@ -46,7 +47,7 @@ func (r *CarRepository) Create(ctx context.Context, car *domain.Car) (*domain.Ca
 
 func (r *CarRepository) GetByID(ctx context.Context, id int64) (*domain.Car, error) {
 	query := `
-		SELECT id, brand, model, year, plate_number, price_per_day, status
+		SELECT id, brand, model, year, plate_number, price_per_day, status, photo
 		FROM cars
 		WHERE id = $1
 	`
@@ -61,6 +62,7 @@ func (r *CarRepository) GetByID(ctx context.Context, id int64) (*domain.Car, err
 		&car.PlateNumber,
 		&car.PricePerDay,
 		&car.Status,
+		&car.Photo,
 	)
 
 	if err != nil {
@@ -78,7 +80,7 @@ func (r *CarRepository) List(
 ) ([]*domain.Car, error) {
 
 	query := `
-		SELECT id, brand, model, year, plate_number, price_per_day, status
+		SELECT id, brand, model, year, plate_number, price_per_day, status, photo
 		FROM cars
 		WHERE 1=1
 	`
@@ -110,13 +112,11 @@ func (r *CarRepository) List(
 	if err != nil {
 		return nil, err
 	}
-
 	defer rows.Close()
 
 	var cars []*domain.Car
 
 	for rows.Next() {
-
 		car := &domain.Car{}
 
 		err := rows.Scan(
@@ -127,6 +127,7 @@ func (r *CarRepository) List(
 			&car.PlateNumber,
 			&car.PricePerDay,
 			&car.Status,
+			&car.Photo,
 		)
 
 		if err != nil {
@@ -148,8 +149,9 @@ func (r *CarRepository) Update(ctx context.Context, car *domain.Car) (*domain.Ca
 		    plate_number = $4,
 		    price_per_day = $5,
 		    status = $6,
+		    photo = $7,
 		    updated_at = CURRENT_TIMESTAMP
-		WHERE id = $7
+		WHERE id = $8
 	`
 
 	_, err := r.db.ExecContext(
@@ -161,6 +163,7 @@ func (r *CarRepository) Update(ctx context.Context, car *domain.Car) (*domain.Ca
 		car.PlateNumber,
 		car.PricePerDay,
 		car.Status,
+		car.Photo,
 		car.ID,
 	)
 

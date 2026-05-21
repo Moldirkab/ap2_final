@@ -3,7 +3,10 @@ module car_service
 go 1.25.0
 
 require (
-	github.com/Moldirkab/ap2_final_car_service_generated v0.0.0-20260516090037-e36cb1913a67
+	github.com/Moldirkab/ap2_final_car_service_generated v0.0.0-20260520181908-6743623aeb8f
+	github.com/Moldirkab/ap2_final_generated v0.0.0-20260516105707-db2b735dee19
+	github.com/Moldirkab/ap2_final_user_service_generated v0.0.0-20260516095852-41a77fbc003d
+	github.com/gin-contrib/cors v1.7.7
 	github.com/gin-gonic/gin v1.12.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.12.3
@@ -41,7 +44,7 @@ require (
 	github.com/ugorji/go/codec v1.3.1 // indirect
 	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
-	golang.org/x/arch v0.22.0 // indirect
+	golang.org/x/arch v0.23.0 // indirect
 	golang.org/x/crypto v0.49.0 // indirect
 	golang.org/x/net v0.51.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect
